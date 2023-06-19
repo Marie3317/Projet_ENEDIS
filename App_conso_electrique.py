@@ -36,3 +36,10 @@ background-size: 10px 10px;
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html = True)
+
+
+
+# Titre
+st.title("Bienvenue dans notre application de prédiction de consommation éléctrique")
+
+

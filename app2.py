@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 
 
 # Load the CSV data
-df_final_20_22 = pd.read_csv("C:/Users/marie/Documents/Projet ENEDIS/df_final_20_22.csv")
+df_final_20_22 = pd.read_csv("df_final_20_22.csv")
 
 # Define X and y variables
 y = df_final_20_22["Consommation_moyenne"]

@@ -11,6 +11,9 @@ from sklearn.model_selection import train_test_split
 # Load the CSV data
 df_final_20_22 = pd.read_csv("df_final_20_22.csv")
 
+# création variable
+noms_mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'septembre', 'octrobre', 'novembre', 'décembre']
+
 # Define X and y variables
 y = df_final_20_22["Consommation_moyenne"]
 X = df_final_20_22.select_dtypes(include='number').drop(
@@ -247,14 +250,26 @@ def update_prediction_output(n_clicks, temperature, rainfall, style_jour, descri
         elif description == 'Confinement':
             input_data['Description_y_Confinement'] = 1
 
-        month_averages = X_train.groupby("Mois").mean()
-        input_data.fillna(month_averages.loc[int(date)], inplace=True)
+ input_data = input_data.fillna(X_train[(X_train['Mois'] == int(date)) & (X_train['Région_'+ region] == 1)].mean())
+        
+        temp_moy = X_train[(X_train['Mois'] == int(date)) & (X_train['Région_'+ region] == 1)]['Moyenne_temperature'].mean()
+        pluie_moy = X_train[(X_train['Mois'] == int(date)) & (X_train['Région_'+ region] == 1)]['PRECIP_TOTAL_DAY_MM'].mean()
+        if profil_consommateur == 'Professionnel':
+            conso_moy = df_final_20_22[(df_final_20_22['Mois'] == int(date)) & (df_final_20_22['Région_'+ region] == 1) & (df_final_20_22['Profil_consommateur_Professionnel'] == 1)]['Consommation_moyenne'].mean()
+        else:
+            conso_moy = df_final_20_22[(df_final_20_22['Mois'] == int(date)) & (df_final_20_22['Région_'+ region] == 1) & (df_final_20_22['Profil_consommateur_Résident'] == 1)]['Consommation_moyenne'].mean()        
 
         input_data_scaled = scaler.transform(input_data)
 
-        predicted_consumption = model.predict(input_data_scaled)
+        predicted_consumption = model.predict(input_data_scaled)        
+        
+        if predicted_consumption[0] > conso_moy:
+            variation = 'hausse'
+        else:
+            variation = 'baisse'
+        
+        return html.P([f"Pour le mois de {noms_mois[int(date)-1]}, pour une température de {temperature}°C et pour une quantité de pluie quotidienne de {rainfall}mm,", html.Br(),  html.Strong(f"la prévision de la consommation électrique est de : {predicted_consumption[0]/1000:.2f} kWh.") , html.Br(),  f"Sachant qu'en moyenne il a fait {temp_moy: .1f}°C, et qu'il a plu {pluie_moy: .0f} mm par jour, et que la consommation électrique est alors de {conso_moy/1000: .2f} kWh,", html.Br(), html.Strong(f"cela représente une {variation} de {100*(predicted_consumption[0]-conso_moy)/conso_moy: .2f}%.") ])
 
-        return f"Prédiction de la consommation électrique : {predicted_consumption[0]:.2f} Wh"
 
     return ""
 

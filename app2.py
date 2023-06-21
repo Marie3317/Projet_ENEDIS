@@ -250,7 +250,7 @@ def update_prediction_output(n_clicks, temperature, rainfall, style_jour, descri
         elif description == 'Confinement':
             input_data['Description_y_Confinement'] = 1
 
- input_data = input_data.fillna(X_train[(X_train['Mois'] == int(date)) & (X_train['Région_'+ region] == 1)].mean())
+        input_data = input_data.fillna(X_train[(X_train['Mois'] == int(date)) & (X_train['Région_'+ region] == 1)].mean())
         
         temp_moy = X_train[(X_train['Mois'] == int(date)) & (X_train['Région_'+ region] == 1)]['Moyenne_temperature'].mean()
         pluie_moy = X_train[(X_train['Mois'] == int(date)) & (X_train['Région_'+ region] == 1)]['PRECIP_TOTAL_DAY_MM'].mean()

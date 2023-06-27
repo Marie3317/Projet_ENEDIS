@@ -249,7 +249,7 @@ def update_prediction_output(n_clicks, temperature, rainfall, style_jour, descri
         else:
             variation = 'baisse'
         
-        return html.P([f"Pour le mois de {noms_mois[int(date)-1]}, pour une température de {temperature}°C et pour une quantité de pluie quotidienne de {rainfall}mm,", html.Br(),  html.Strong(f"la prévision de la consommation électrique est de : {predicted_consumption[0]/1000:.2f} kWh.") , html.Br(),  f"Sachant qu'en moyenne il a fait {temp_moy: .1f}°C, et qu'il a plu {pluie_moy: .0f} mm par jour, et que la consommation électrique est alors de {conso_moy/1000: .2f} kWh,", html.Br(), html.Strong(f"cela représente une {variation} de {100*(predicted_consumption[0]-conso_moy)/conso_moy: .2f}%.") ])
+        return html.P([f"Pour le mois de {noms_mois[int(date)-1]}, pour une température de {temperature}°C et pour une quantité de pluie quotidienne de {rainfall}mm,", html.Br(),  html.Strong(f"la prévision de la consommation électrique est de : {predicted_consumption[0]/1000:.2f} kWh.") , html.Br(),  f"Sachant que la consommation électrique moyenne des années précéedent est alors de {conso_moy/1000: .2f} kWh,", html.Br(), html.Strong(f"cela représente une {variation} de {100*(predicted_consumption[0]-conso_moy)/conso_moy: .2f}%.") ])
 
 
     return ""

@@ -68,7 +68,7 @@ app.layout = html.Div(
                                     max=40,
                                     step=1,
                                     value=0,
-                                    marks={i: str(i) for i in range(-16, 41, 2)},
+                                    marks={i: str(i) for i in range(-16, 41, 1)},
                                 ),
                                
 

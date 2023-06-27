@@ -61,7 +61,7 @@ app.layout = html.Div(
         html.Br(),
         
         
-                html.P("Choisissez une température (°C): "),
+        html.P("Choisissez une température (°C): "),
                                 dcc.Slider(
                                     id='temperature-slider',
                                     min=-15,
@@ -72,14 +72,10 @@ app.layout = html.Div(
                                 ),
                                
 
-            html.Div(
-                [
-                    html.P("Quantité de pluie (mm)"),
-                    dcc.Input(id='rainfall-input', type='number', value='', min=0),
-                ],
-                className="col",
-                style={'margin': 'auto'}
-            ),
+
+        html.P("Quantité de pluie (mm)"),
+        dcc.Input(id='rainfall-input', type='number', value='', min=0),
+
         
         html.Br(),
         html.Br(),

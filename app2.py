@@ -61,10 +61,6 @@ app.layout = html.Div(
         html.Br(),
         
         
-        html.Div(
-                [
-                    html.Div(
-                        [
                 html.P("Choisissez une température (°C): "),
                                 dcc.Slider(
                                     id='temperature-slider',
@@ -74,12 +70,7 @@ app.layout = html.Div(
                                     value=0,
                                     marks={i: str(i) for i in range(-16, 41, 2)},
                                 ),
-                                html.Div(id='temperature-output'),
-                            ],
-                            className="col",
-                            style={'margin': 'auto', 'width': '80%'}  
-                        ),
-
+                               
 
             html.Div(
                 [
@@ -89,13 +80,7 @@ app.layout = html.Div(
                 className="col",
                 style={'margin': 'auto'}
             ),
-        ],
-        className="row",
-        style={'width': '300px', 'textAlign': 'center',
-                           'color': 'black', 'margin': '0 auto'}
-
-
-        ),
+        
         html.Br(),
         html.Br(),
         
